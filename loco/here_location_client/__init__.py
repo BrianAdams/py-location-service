@@ -1,2 +1,2 @@
-from here_location_client import client
+from loco.here_location_client import client
 

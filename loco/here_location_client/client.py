@@ -35,6 +35,7 @@ def getlatlong(address):
         if response.status != 200:
             raise Exception("Unexpected Response")
 
+    #TODO: Guard against non 1 line view sets
     locations = [_getlocationFromResult(result) for result in jsonpayload["Response"]["View"][0]["Result"]]
 
     return locations
