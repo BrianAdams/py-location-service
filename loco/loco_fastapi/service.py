@@ -21,7 +21,7 @@ class SearchResult(BaseModel):
     Results: List[Result]
 
 
-@app.get("/v1/geocoding", response_model=SearchResult)
+@app.get("/v1/geocoding", response_model=SearchResult, responses={503: {"description": "Proxied services unaccessible"}})
 async def search(*, address=Query(..., title="Address")):
     try:
         result = controller.search(address)
