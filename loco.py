@@ -5,6 +5,7 @@ import os
 import click
 from loguru import logger
 
+# pylint: disable=no-name-in-module
 from loco.loco_fastapi import service as httpsrv
 import loco.controller as controller
 
@@ -46,6 +47,7 @@ def query(address):
 
 
 def main():
+    # pylint: disable=no-value-for-parameter
     cli()
     return True
 
