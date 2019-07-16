@@ -27,7 +27,8 @@ def _getlocationFromResult(jsonResult):
 
 def getlatlong(address):
     global __apitoken__
-    params = urllib.parse.urlencode({'address': address})
+    
+    params = urllib.parse.urlencode({'address': address, 'types':'street_address'})
     uri = "https://maps.googleapis.com/maps/api/geocode/json?{params}&key={apikey}".format(
         params=params, apikey=__apitoken__)
     logger.debug("Calling  " + uri)
@@ -35,6 +36,7 @@ def getlatlong(address):
     with urllib.request.urlopen(uri) as response:
         res_body = response.read().decode("utf-8")
         jsonpayload = json.loads(res_body, parse_float=decimal.Decimal)
+
         if response.status != 200:
             raise Exception("Unexpected Response")
         status = jsonpayload["status"]

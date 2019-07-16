@@ -7,7 +7,7 @@ from decimal import Decimal
 import loco.controller as controller
 
 app = FastAPI()
-
+app.version = 1.0
 
 
 class Result(BaseModel):
@@ -21,13 +21,13 @@ class SearchResult(BaseModel):
     Results: List[Result]
 
 
-@app.get("/geocoding", response_model=SearchResult)
+@app.get("/v1/geocoding", response_model=SearchResult)
 async def search(*, address=Query(..., title="Address")):
     result = controller.search(address)
     return {"Results": result}
 
 
-@app.get("/ping")
+@app.get("/v1/ping")
 async def ping():
     return "pong"
 
