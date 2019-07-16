@@ -51,7 +51,7 @@ http://localhost:8080/docs
 
 You can use the Swagger documentation page to test out the API, or you can send queries using a tool like curl:
 ```shell
->curl -X GET "http://localhost:8000/geocoding?address=1313%20mockingbird%20lane" -H "accept: application/json"
+>curl -X GET "http://localhost:8000/v1/geocoding?address=1313%20mockingbird%20lane" -H "accept: application/json"
 ```
 Query response
 ```json
