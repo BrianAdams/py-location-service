@@ -147,9 +147,8 @@ The command "pytest" exited with 0.
 ```
 
 #### Todo:
-* Intergrate setup so that the application can simply be installed
 * Expose configuration for enabling hooks for authentication
-* Unit tests
+* Flush out Unit tests
 * Find the error codes for HERE
 
 #### Visual Studio Code integration
