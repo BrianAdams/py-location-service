@@ -1,0 +1,136 @@
+{
+    "results" : [
+       {
+          "address_components" : [
+             {
+                "long_name" : "71",
+                "short_name" : "71",
+                "types" : [ "street_number" ]
+             },
+             {
+                "long_name" : "O Street Northwest",
+                "short_name" : "O St NW",
+                "types" : [ "route" ]
+             },
+             {
+                "long_name" : "Northwest Washington",
+                "short_name" : "Northwest Washington",
+                "types" : [ "neighborhood", "political" ]
+             },
+             {
+                "long_name" : "Washington",
+                "short_name" : "Washington",
+                "types" : [ "locality", "political" ]
+             },
+             {
+                "long_name" : "District of Columbia",
+                "short_name" : "DC",
+                "types" : [ "administrative_area_level_1", "political" ]
+             },
+             {
+                "long_name" : "United States",
+                "short_name" : "US",
+                "types" : [ "country", "political" ]
+             },
+             {
+                "long_name" : "20001",
+                "short_name" : "20001",
+                "types" : [ "postal_code" ]
+             }
+          ],
+          "formatted_address" : "71 O St NW, Washington, DC 20001, USA",
+          "geometry" : {
+             "location" : {
+                "lat" : 38.90843479999999,
+                "lng" : -77.011087
+             },
+             "location_type" : "ROOFTOP",
+             "viewport" : {
+                "northeast" : {
+                   "lat" : 38.9097837802915,
+                   "lng" : -77.00973801970849
+                },
+                "southwest" : {
+                   "lat" : 38.9070858197085,
+                   "lng" : -77.01243598029151
+                }
+             }
+          },
+          "place_id" : "ChIJW-M9Cfa3t4kRWEhhdTGbu6s",
+          "plus_code" : {
+             "compound_code" : "WX5Q+9H Washington, District of Columbia, United States",
+             "global_code" : "87C4WX5Q+9H"
+          },
+          "types" : [ "establishment", "point_of_interest" ]
+       },
+       {
+          "address_components" : [
+             {
+                "long_name" : "1305",
+                "short_name" : "1305",
+                "types" : [ "street_number" ]
+             },
+             {
+                "long_name" : "T Street Northwest",
+                "short_name" : "T St NW",
+                "types" : [ "route" ]
+             },
+             {
+                "long_name" : "Northwest Washington",
+                "short_name" : "Northwest Washington",
+                "types" : [ "neighborhood", "political" ]
+             },
+             {
+                "long_name" : "Washington",
+                "short_name" : "Washington",
+                "types" : [ "locality", "political" ]
+             },
+             {
+                "long_name" : "District of Columbia",
+                "short_name" : "DC",
+                "types" : [ "administrative_area_level_1", "political" ]
+             },
+             {
+                "long_name" : "United States",
+                "short_name" : "US",
+                "types" : [ "country", "political" ]
+             },
+             {
+                "long_name" : "20009",
+                "short_name" : "20009",
+                "types" : [ "postal_code" ]
+             },
+             {
+                "long_name" : "4438",
+                "short_name" : "4438",
+                "types" : [ "postal_code_suffix" ]
+             }
+          ],
+          "formatted_address" : "1305 T St NW, Washington, DC 20009, USA",
+          "geometry" : {
+             "location" : {
+                "lat" : 38.9157579,
+                "lng" : -77.02996539999999
+             },
+             "location_type" : "ROOFTOP",
+             "viewport" : {
+                "northeast" : {
+                   "lat" : 38.91710688029149,
+                   "lng" : -77.0286164197085
+                },
+                "southwest" : {
+                   "lat" : 38.91440891970849,
+                   "lng" : -77.03131438029151
+                }
+             }
+          },
+          "place_id" : "ChIJh_qFgui3t4kRsErkX3189iQ",
+          "plus_code" : {
+             "compound_code" : "WX8C+82 Washington, District of Columbia, United States",
+             "global_code" : "87C4WX8C+82"
+          },
+          "types" : [ "establishment", "point_of_interest" ]
+       }
+    ],
+    "status" : "OK"
+ }

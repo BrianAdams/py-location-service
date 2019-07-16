@@ -1,0 +1,12 @@
+dist: xenial   # required for Python >= 3.7
+language: python
+python:
+  - "3.7"
+# command to install dependencies
+install:
+  - pip install -e .
+  - pip install -r requirements.txt
+  - pip install -r requirements/dev.txt
+# command to run tests
+script:
+  - pytest  

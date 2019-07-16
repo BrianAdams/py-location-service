@@ -1,5 +1,6 @@
 Geocoding Proxy Service
 -----------------------
+[![Build Status](https://travis-ci.org/BrianAdams/py-location-service.svg?branch=master)](https://travis-ci.org/BrianAdams/py-location-service)
 
 This project is intended to be an example for building production Python services. It is current a work in progress!
 
@@ -120,6 +121,30 @@ SERVER_PORT integer, Port that the service listens on, defaults to 8000
 ### Contributing
 
 This is not an ongoing project. Feel free to clone and use this if you find it useful. I'm not planning on accepting an contributions or changes.
+
+### Running test
+Setup the environment:
+This is using venv 
+```
+>pip install -e .
+>pip install -r requirements.txt
+>pip install -r requirements/dev.txt
+```
+```
+> pytest
+============================= test session starts ==============================
+platform linux -- Python 3.7.1, pytest-5.0.1, py-1.8.0, pluggy-0.12.0
+rootdir: /home/travis/build/BrianAdams/py-location-service
+collected 1 item                                                               
+tests/test_google_location_client.py .                                   [100%]
+=============================== warnings summary ===============================
+/home/travis/virtualenv/python3.7.1/lib/python3.7/distutils/__init__.py:4
+  /home/travis/virtualenv/python3.7.1/lib/python3.7/distutils/__init__.py:4: DeprecationWarning: the imp module is deprecated in favour of importlib; see the module's documentation for alternative uses
+    import imp
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+===================== 1 passed, 1 warnings in 0.07 seconds =====================
+The command "pytest" exited with 0.
+```
 
 #### Todo:
 * Intergrate setup so that the application can simply be installed
