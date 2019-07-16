@@ -3,7 +3,7 @@ Geocoding Proxy Service
 
 This project is intended to be an example for building production Python services. It is current a work in progress!
 
-The Geocoding Proxy Service resolves the lattidue and longitude for a given address using third party geocoding services. 
+The Geocoding Proxy Service resolves the latitude and longitude for a given address using third party geocoding services. The current service limits the geocode search to "street addresses", which is to say some APIs support seaching for points of interests, stores, etc... which is currently disabled.
 
 Features:
 * Automatic fallback to another geo-coding service on failure
@@ -13,7 +13,7 @@ Features:
 When using the proxy, the service will return one or many results that include the lat,lng and the full address that the service matched on.  In general, if the address you were expecting was not matched, you will need to provide a more complete address when querying.  
 
 ### Getting Started:
-The easiest way to experiement with the serivce is to spin it up in a docker container.
+The easiest way to experiment with the service is to spin it up in a docker container.
 ```
 cp env.template .env
 # replace api keys in the .env with your keys
@@ -85,7 +85,7 @@ uvicorn --workers 10 loco.loco_fastapi.service:app --no-access-log
 ```
 
 ### Command-line interface
-The service has several options for running directl form the command-line
+The service has several options for running direct form the command-line
 ```shell
 #Built in help
 >./loco.py --help
@@ -125,6 +125,7 @@ This is not an ongoing project. Feel free to clone and use this if you find it u
 * Intergrate setup so that the application can simply be installed
 * Expose configuration for enabling hooks for authentication
 * Unit tests
+* Find the error codes for HERE and unify them with an abstraction that works for all geocode services
 
 #### Visual Studio Code integration
 There are hooks for integrating with vscode using remote docker containers.  
