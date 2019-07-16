@@ -8,7 +8,7 @@
             "name": "Loco: cmd-line",
             "type": "python",
             "request": "launch",
-            "module": "loco",
+            "program": "${workspaceFolder}/loco.py",
             "console": "integratedTerminal",
             "args": [
                 "query",
