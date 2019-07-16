@@ -20,10 +20,12 @@ def init(appcode="", appid=""):
 
 
 def _getlocationFromResultParts(jsonResult):
-    return {"provider": "Here",
-            "address": jsonResult["Location"]["Address"]["Label"],
-            "lat": jsonResult["Location"]["DisplayPosition"]["Latitude"],
-            "lon": jsonResult["Location"]["DisplayPosition"]["Longitude"]}
+    return {
+        "provider": "Here",
+        "address": jsonResult["Location"]["Address"]["Label"],
+        "lat": jsonResult["Location"]["DisplayPosition"]["Latitude"],
+        "lon": jsonResult["Location"]["DisplayPosition"]["Longitude"],
+    }
 
 
 def _getlocationFromResult(jsonResult):
@@ -35,9 +37,11 @@ def getlatlong(address):
     global __appid___
 
     params = urllib.parse.urlencode(
-        {'searchtext': address, 'app_code': __appcode__, 'app_id': __appid___})
+        {"searchtext": address, "app_code": __appcode__, "app_id": __appid___}
+    )
     uri = "https://geocoder.api.here.com/6.2/geocode.json?{params}".format(
-        params=params)
+        params=params
+    )
     logger.debug("Calling " + uri)
 
     try:
@@ -48,15 +52,15 @@ def getlatlong(address):
     except urllib.error.HTTPError as e:
         if e.code == 401:
             raise clientExceptions.PermissionDenied(
-                "Problem with Here account: {}".format(e.msg))
+                "Problem with Here account: {}".format(e.msg)
+            )
     except Exception:
         raise
 
     if jsonpayload["Response"]["View"] == []:
         return []  # empty response
 
-    resultsections = [view["Result"]
-                      for view in jsonpayload["Response"]["View"]]
+    resultsections = [view["Result"] for view in jsonpayload["Response"]["View"]]
 
     locations = []
     for result in resultsections:

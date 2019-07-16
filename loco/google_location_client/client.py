@@ -1,6 +1,6 @@
-'''
+"""
 Documentation on Google's Map API: https://developers.google.com/maps/documentation/geocoding
-'''
+"""
 
 import sys
 import urllib.parse
@@ -21,19 +21,21 @@ def init(apitoken=""):
 
 
 def _getlocationFromResult(jsonResult):
-    return {"provider": "Google",
-            "address": jsonResult["formatted_address"],
-            "lat": jsonResult["geometry"]["location"]["lat"],
-            "lon": jsonResult["geometry"]["location"]["lng"]}
+    return {
+        "provider": "Google",
+        "address": jsonResult["formatted_address"],
+        "lat": jsonResult["geometry"]["location"]["lat"],
+        "lon": jsonResult["geometry"]["location"]["lng"],
+    }
 
 
 def getlatlong(address):
     global __apitoken__
 
-    params = urllib.parse.urlencode(
-        {'address': address, 'types': 'street_address'})
+    params = urllib.parse.urlencode({"address": address, "types": "street_address"})
     uri = "https://maps.googleapis.com/maps/api/geocode/json?{params}&key={apikey}".format(
-        params=params, apikey=__apitoken__)
+        params=params, apikey=__apitoken__
+    )
     logger.debug("Calling  " + uri)
     try:
         with urllib.request.urlopen(uri) as response:
@@ -52,17 +54,17 @@ def getlatlong(address):
         return []
     if status in ["OVER_DAILY_LIMIT", "OVER_QUERY_LIMIT", "UNKNOWN_ERROR"]:
         raise clientExceptions.QuotaLimit(
-            "Temporary error: {}".format(
-                jsonpayload["status"]))
+            "Temporary error: {}".format(jsonpayload["status"])
+        )
     if status in ["REQUEST_DENIED"]:
         raise clientExceptions.PermissionDenied(
-            "Problem with google account: {}".format(
-                jsonpayload["status"]))
+            "Problem with google account: {}".format(jsonpayload["status"])
+        )
     if status in ["INVALID_REQUEST"]:
-        raise clientExceptions.InvalidRequest("Problem with query: {}".format(
-            jsonpayload["status"]))
+        raise clientExceptions.InvalidRequest(
+            "Problem with query: {}".format(jsonpayload["status"])
+        )
 
-    locations = [_getlocationFromResult(result)
-                 for result in jsonpayload["results"]]
+    locations = [_getlocationFromResult(result) for result in jsonpayload["results"]]
 
     return locations

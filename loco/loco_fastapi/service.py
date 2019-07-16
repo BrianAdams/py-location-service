@@ -24,16 +24,15 @@ class SearchResult(BaseModel):
 @app.get(
     "/v1/geocoding",
     response_model=SearchResult,
-    responses={
-        503: {
-            "description": "Proxied services unaccessible"}})
+    responses={503: {"description": "Proxied services unaccessible"}},
+)
 async def search(*, address=Query(..., title="Address")):
     try:
         result = controller.search(address)
     except controller.NoGeoCodeServicesAvailable:
         raise HTTPException(
-            status_code=503,
-            detail="No proxied servies accessible at this moment")
+            status_code=503, detail="No proxied servies accessible at this moment"
+        )
 
     return {"Results": result}
 
@@ -44,5 +43,5 @@ async def ping():
 
 
 def start():
-    SERVICE_PORT = int(os.environ.get('SERVICE_PORT', 8000))
-    uvicorn.run(app, host='0.0.0.0', port=SERVICE_PORT)
+    SERVICE_PORT = int(os.environ.get("SERVICE_PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=SERVICE_PORT)
