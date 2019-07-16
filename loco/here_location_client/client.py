@@ -47,7 +47,8 @@ def getlatlong(address):
 
     except urllib.error.HTTPError as e:
         if e.code == 401:
-            raise clientExceptions.PermissionDenied("Problem with Here account: {}".format(e.msg))
+            raise clientExceptions.PermissionDenied(
+                "Problem with Here account: {}".format(e.msg))
     except Exception:
         raise
 

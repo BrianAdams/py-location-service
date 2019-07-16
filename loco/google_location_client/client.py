@@ -29,8 +29,9 @@ def _getlocationFromResult(jsonResult):
 
 def getlatlong(address):
     global __apitoken__
-    
-    params = urllib.parse.urlencode({'address': address, 'types':'street_address'})
+
+    params = urllib.parse.urlencode(
+        {'address': address, 'types': 'street_address'})
     uri = "https://maps.googleapis.com/maps/api/geocode/json?{params}&key={apikey}".format(
         params=params, apikey=__apitoken__)
     logger.debug("Calling  " + uri)
@@ -50,10 +51,13 @@ def getlatlong(address):
     if status in ["ZERO_RESULTS"]:
         return []
     if status in ["OVER_DAILY_LIMIT", "OVER_QUERY_LIMIT", "UNKNOWN_ERROR"]:
-        raise clientExceptions.QuotaLimit("Temporary error: {}".format(jsonpayload["status"]))
+        raise clientExceptions.QuotaLimit(
+            "Temporary error: {}".format(
+                jsonpayload["status"]))
     if status in ["REQUEST_DENIED"]:
-        raise clientExceptions.PermissionDenied("Problem with google account: {}".format(
-            jsonpayload["status"]))
+        raise clientExceptions.PermissionDenied(
+            "Problem with google account: {}".format(
+                jsonpayload["status"]))
     if status in ["INVALID_REQUEST"]:
         raise clientExceptions.InvalidRequest("Problem with query: {}".format(
             jsonpayload["status"]))

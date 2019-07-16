@@ -21,12 +21,19 @@ class SearchResult(BaseModel):
     Results: List[Result]
 
 
-@app.get("/v1/geocoding", response_model=SearchResult, responses={503: {"description": "Proxied services unaccessible"}})
+@app.get(
+    "/v1/geocoding",
+    response_model=SearchResult,
+    responses={
+        503: {
+            "description": "Proxied services unaccessible"}})
 async def search(*, address=Query(..., title="Address")):
     try:
         result = controller.search(address)
     except controller.NoGeoCodeServicesAvailable:
-         raise HTTPException(status_code=503, detail="No proxied servies accessible at this moment") 
+        raise HTTPException(
+            status_code=503,
+            detail="No proxied servies accessible at this moment")
 
     return {"Results": result}
 

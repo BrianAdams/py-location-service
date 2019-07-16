@@ -13,8 +13,10 @@ from loco.here_location_client import client as hmapclient
 
 __clients__ = []
 
+
 class NoGeoCodeServicesAvailable(Exception):
     pass
+
 
 def _initClients():
     """Only clients that have the proper configuration will be added to the list of geocode clients used.
@@ -26,18 +28,20 @@ def _initClients():
     GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
     HERE_APP_ID = os.environ.get('HERE_APP_ID')
     HERE_APP_CODE = os.environ.get('HERE_APP_CODE')
-       
+
     if GOOGLE_API_KEY:
         gmapsclient.init(GOOGLE_API_KEY)
         __clients__.append(gmapsclient.getlatlong)
     else:
-        logger.warning("Missing GOOGLE_API_KEY environment setting, will not use Google")
+        logger.warning(
+            "Missing GOOGLE_API_KEY environment setting, will not use Google")
 
     if HERE_APP_CODE and HERE_APP_ID:
         hmapclient.init(HERE_APP_CODE, HERE_APP_ID)
         __clients__.append(hmapclient.getlatlong)
     else:
-        logger.warning("Missing either HERE_APP_CODE or HERE_APP_ID environment setting, will not use HERE")
+        logger.warning(
+            "Missing either HERE_APP_CODE or HERE_APP_ID environment setting, will not use HERE")
 
     if __clients__ == []:
         raise Exception(
@@ -61,7 +65,7 @@ def search(address):
         _initClients()
 
     random.shuffle(__clients__)
-    response_received =False
+    response_received = False
     for client_getlatlong in __clients__:
         try:
             locations.extend(client_getlatlong(address))
@@ -74,4 +78,3 @@ def search(address):
     if not response_received:
         raise NoGeoCodeServicesAvailable()
     return locations
-
