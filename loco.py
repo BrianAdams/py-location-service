@@ -5,7 +5,6 @@ import os
 import click
 from loguru import logger
 
-# test
 # pylint: disable=no-name-in-module
 from loco.loco_fastapi import service as httpsrv
 import loco.controller as controller
