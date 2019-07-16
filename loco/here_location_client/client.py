@@ -4,6 +4,7 @@ import urllib.request
 import json
 import decimal
 from loguru import logger
+import loco.clientExceptions as clientExceptions
 
 __appcode__ = None
 __appid___ = None
@@ -43,16 +44,15 @@ def getlatlong(address):
         with urllib.request.urlopen(uri) as response:
             res_body = response.read().decode("utf-8")
             jsonpayload = json.loads(res_body, parse_float=decimal.Decimal)
-            if response.status != 200:
-                raise Exception("Unexpected Response")
-            if jsonpayload["Response"]["View"] == []:
-                return []  # empty response
 
     except urllib.error.HTTPError as e:
         if e.code == 401:
-            raise Exception("Problem with Here account: {}".format(e.msg))
+            raise clientExceptions.PermissionDenied("Problem with Here account: {}".format(e.msg))
     except Exception:
         raise
+
+    if jsonpayload["Response"]["View"] == []:
+        return []  # empty response
 
     resultsections = [view["Result"]
                       for view in jsonpayload["Response"]["View"]]

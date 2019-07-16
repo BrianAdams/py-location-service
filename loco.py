@@ -39,7 +39,12 @@ def proxy(service_port):
 @click.command(help="Search for the given address")
 @click.argument('address')
 def query(address):
-    locations = controller.search(address)
+    try:
+        locations = controller.search(address)
+    except controller.NoGeoCodeServicesAvailable:
+        print("No proxied services are available at this moment")
+        return False
+
     for loc in locations:
         print("{provider}: lat: {lat}, lon: {lon} Address: {addr}".format(
             lat=loc["lat"], lon=loc["lon"], provider=loc["provider"], addr=loc["address"]))

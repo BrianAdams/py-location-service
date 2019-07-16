@@ -125,7 +125,7 @@ This is not an ongoing project. Feel free to clone and use this if you find it u
 * Intergrate setup so that the application can simply be installed
 * Expose configuration for enabling hooks for authentication
 * Unit tests
-* Find the error codes for HERE and unify them with an abstraction that works for all geocode services
+* Find the error codes for HERE
 
 #### Visual Studio Code integration
 There are hooks for integrating with vscode using remote docker containers.  

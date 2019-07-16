@@ -13,6 +13,8 @@ from loco.here_location_client import client as hmapclient
 
 __clients__ = []
 
+class NoGeoCodeServicesAvailable(Exception):
+    pass
 
 def _initClients():
     """Only clients that have the proper configuration will be added to the list of geocode clients used.
@@ -59,13 +61,17 @@ def search(address):
         _initClients()
 
     random.shuffle(__clients__)
+    response_received =False
     for client_getlatlong in __clients__:
         try:
             locations.extend(client_getlatlong(address))
+            response_received = True
             if locations != []:
                 break
         except Exception as e:
             logger.error(e)
 
+    if not response_received:
+        raise NoGeoCodeServicesAvailable()
     return locations
 

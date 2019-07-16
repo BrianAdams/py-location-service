@@ -1,6 +1,6 @@
 import uvicorn
 import os
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, HTTPException
 from pydantic import BaseModel
 from typing import List
 from decimal import Decimal
@@ -23,7 +23,11 @@ class SearchResult(BaseModel):
 
 @app.get("/v1/geocoding", response_model=SearchResult)
 async def search(*, address=Query(..., title="Address")):
-    result = controller.search(address)
+    try:
+        result = controller.search(address)
+    except controller.NoGeoCodeServicesAvailable:
+         raise HTTPException(status_code=503, detail="No proxied servies accessible at this moment") 
+
     return {"Results": result}
 
 
