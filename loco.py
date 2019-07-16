@@ -3,6 +3,7 @@ import sys
 import os
 
 import click
+from loguru import logger
 
 from loco.loco_fastapi import service as httpsrv
 import loco.controller as controller
@@ -17,16 +18,12 @@ def cli(google_api_key,here_app_id,here_app_code):
     This applciation will return the lat/lon from any one of several
     web services.
     '''
-    print("HERE!" + google_api_key)
     if google_api_key:
         os.environ['GOOGLE_API_KEY']=google_api_key
     if here_app_id:
         os.environ['HERE_APP_ID']=here_app_id
     if here_app_code:
-        os.environ['HERE_APP_CODE']=here_app_code
-
-    print("FILE-"+ os.environ.get('GOOGLE_API_KEY'))
-    
+        os.environ['HERE_APP_CODE']=here_app_code   
 
 
 @click.command(help="Start the API server")
@@ -34,8 +31,6 @@ def cli(google_api_key,here_app_id,here_app_code):
 def proxy(service_port):
     if service_port:
         os.environ['SERVICE_PORT']=service_port
-
-    print("in proxy")
     httpsrv.start()
     return True
 

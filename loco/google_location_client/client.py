@@ -7,6 +7,7 @@ import urllib.parse
 import urllib.request
 import json
 import decimal
+from loguru import logger
 
 __apitoken__ = None
 
@@ -29,7 +30,7 @@ def getlatlong(address):
     params = urllib.parse.urlencode({'address': address})
     uri = "https://maps.googleapis.com/maps/api/geocode/json?{params}&key={apikey}".format(
         params=params, apikey=__apitoken__)
-    print(uri)
+    logger.debug("Calling  " + uri)
 
     with urllib.request.urlopen(uri) as response:
         res_body = response.read().decode("utf-8")
@@ -40,7 +41,7 @@ def getlatlong(address):
         if status in ["ZERO_RESULTS"]:
             return []
         if status in ["OVER_DAILY_LIMIT", "OVER_QUERY_LIMIT", "UNKNOWN_ERROR"]:
-            print("Temporary error: {}".format(jsonpayload["status"]))
+            logger.warning("Temporary error: {}".format(jsonpayload["status"]))
             return []
         if status in ["REQUEST_DENIED"]:
             raise Exception("Problem with google account: {}".format(

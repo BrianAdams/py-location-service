@@ -3,6 +3,7 @@ import urllib.parse
 import urllib.request
 import json
 import decimal
+from loguru import logger
 
 __appcode__ = None
 __appid___ = None
@@ -36,7 +37,7 @@ def getlatlong(address):
         {'searchtext': address, 'app_code': __appcode__, 'app_id': __appid___})
     uri = "https://geocoder.api.here.com/6.2/geocode.json?{params}".format(
         params=params)
-    print(uri)
+    logger.debug("Calling " + uri)
 
     try:
         with urllib.request.urlopen(uri) as response:

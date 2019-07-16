@@ -6,6 +6,8 @@ as the access method is responsible for translating from Python types to that ap
 
 import os
 import random
+from loguru import logger
+
 from loco.google_location_client import client as gmapsclient
 from loco.here_location_client import client as hmapclient
 
@@ -27,13 +29,13 @@ def _initClients():
         gmapsclient.init(GOOGLE_API_KEY)
         __clients__.append(gmapsclient.getlatlong)
     else:
-        print("Missing GOOGLE_API_KEY environment setting, will not use Google")
+        logger.warning("Missing GOOGLE_API_KEY environment setting, will not use Google")
 
     if HERE_APP_CODE and HERE_APP_ID:
         hmapclient.init(HERE_APP_CODE, HERE_APP_ID)
         __clients__.append(hmapclient.getlatlong)
     else:
-        print("Missing either HERE_APP_CODE or HERE_APP_ID environment setting, will not use HERE")
+        logger.warning("Missing either HERE_APP_CODE or HERE_APP_ID environment setting, will not use HERE")
 
     if __clients__ == []:
         raise Exception(
@@ -63,7 +65,7 @@ def search(address):
             if locations != []:
                 break
         except Exception as e:
-            print(e)
+            logger.error(e)
 
     return locations
 
