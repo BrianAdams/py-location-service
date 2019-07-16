@@ -5,6 +5,7 @@ as the access method is responsible for translating from Python types to that ap
 '''
 
 import os
+import random
 from loco.google_location_client import client as gmapsclient
 from loco.here_location_client import client as hmapclient
 
@@ -21,7 +22,6 @@ def _initClients():
     Raises:
         Exception: In the case no clients can be configured
     """
-    global __clients__
     if GOOGLE_API_KEY:
         gmapsclient.init(GOOGLE_API_KEY)
         __clients__.append(gmapsclient.getlatlong)
@@ -39,11 +39,26 @@ def _initClients():
 
 
 def search(address):
+    """Performs a search for the lat,lng of the given address. Randomly selects the backend service to try first and then rotates
+    to the next one if it fails.
+
+    Arguments:
+        address {sring} -- Address or partial address to search for
+
+    Returns:
+        List[Results] -- TBD
+    """    
 
     locations = []
 
+    random.shuffle(__clients__)
     for client_getlatlong in __clients__:
-        locations.extend(client_getlatlong(address))
+        try:
+            locations.extend(client_getlatlong(address))
+            if locations != []:
+                break
+        except Exception as e:
+            print (e)
     
     for loc in locations:
         print("{provider}: lat: {lat}, lon: {lon}".format(lat=loc["lat"],lon=loc["lon"],provider=loc["provider"]))

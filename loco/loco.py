@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import sys
 import os
 
@@ -6,11 +7,6 @@ import click
 #from here_location_client import client as hmapclient
 from loco.loco_fastapi import service as httpsrv
 import loco.controller as controller
-
-#TODO: Guard against missing parameters
-#GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
-#HERE_APP_ID = os.environ.get('HERE_APP_ID')
-#HERE_APP_CODE = os.environ.get('HERE_APP_CODE')
 
 @click.group()
 def cli():

@@ -37,6 +37,14 @@ Query response
 ```
 
 ```
+docker build -t loco .
+docker run -it -p <localport>:8000 --env-file=.env loco
+```
+Swagger Documentation:
+```
+http://localhost:<localport>/docs
+```
+```
 gunicorn  loco.loco_fastapi.service:app -w 2 -k uvicorn.workers.UvicornWorker
 ```
 
@@ -48,6 +56,13 @@ uvicorn --workers 10 loco.loco_fastapi.service:app --no-access-log
 env GOOGLE_API_KEY=<key> HERE_APP_ID=<key> HERE_APP_CODE=<key> -m loco query "1313 Mockingbird Lane" 
 ```
 
-*** Contributing
+#### Options in the environment variables:
+
+GOOGLE_API_KEY string, Developer key for Boogle API
+HERE_APP_ID string, Developer app id for Here.com
+HERE_APP_CODE string, Developer application code for Here.com
+SERVER_PORT integer, Port that the service listens on, defaults to 8000
+
+### Contributing
 
 This is not an ongoing project. Feel free to clone and use this if you find it useful. I'm not planning on accepting an contributions or changes.

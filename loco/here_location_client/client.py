@@ -15,11 +15,14 @@ def init(appcode="",appid=""):
     __appid___ = appid
     return True
 
-def _getlocationFromResult(jsonResult):
+def _getlocationFromResultParts(jsonResult):
     return {"provider": "Here",
             "address": jsonResult["Location"]["Address"]["Label"],
             "lat": jsonResult["Location"]["DisplayPosition"]["Latitude"],
             "lon": jsonResult["Location"]["DisplayPosition"]["Longitude"]}
+
+def _getlocationFromResult(jsonResult):
+  return [_getlocationFromResultParts(part) for part in jsonResult]
 
 def getlatlong(address):
     global __appcode__
@@ -29,13 +32,26 @@ def getlatlong(address):
     uri = "https://geocoder.api.here.com/6.2/geocode.json?{params}".format(params=params)
     print(uri)
 
-    with urllib.request.urlopen(uri) as response:
-        res_body = response.read().decode("utf-8")
-        jsonpayload = json.loads(res_body,parse_float=decimal.Decimal)
-        if response.status != 200:
-            raise Exception("Unexpected Response")
+    try:
+        with urllib.request.urlopen(uri) as response:
+                res_body = response.read().decode("utf-8")
+                jsonpayload = json.loads(res_body,parse_float=decimal.Decimal)
+                if response.status != 200:
+                  raise Exception("Unexpected Response")
+                if jsonpayload["Response"]["View"] == []:
+                  return [] #empty response
+                  
+                
+    except urllib.error.HTTPError as e:
+        if e.code == 401:
+            raise Exception("Problem with Here account: {}".format(e.msg))
+    except Exception:
+            raise
 
-    #TODO: Guard against non 1 line view sets
-    locations = [_getlocationFromResult(result) for result in jsonpayload["Response"]["View"][0]["Result"]]
+    resultsections = [view["Result"] for view in jsonpayload["Response"]["View"]]
+
+    locations = []
+    for result in resultsections:
+        locations.extend(_getlocationFromResult(result))
 
     return locations

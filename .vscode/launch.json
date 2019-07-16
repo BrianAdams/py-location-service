@@ -5,29 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Module",
+            "name": "Loco: cmd-line",
             "type": "python",
             "request": "launch",
             "module": "loco",
             "console": "integratedTerminal",
             "args": [
                 "query",
-                "80 Courter Ln"
+                "1313 Mockingbird Lane"
             ]
         },
         {
-            "name": "Python: loco",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/loco/loco.py",
-            "console": "integratedTerminal",
-            "args": [
-                "query",
-                "80 Courter Ln"
-            ]
-        },
-        {
-            "name": "Python: loco-proxy",
+            "name": "Loco: web-service",
             "type": "python",
             "request": "launch",
             "module": "loco",

@@ -50,6 +50,16 @@ def getlatlong(address):
         jsonpayload = json.loads(res_body,parse_float=decimal.Decimal)
         if response.status != 200:
             raise Exception("Unexpected Response")
+        status = jsonpayload["status"]
+        if status in ["ZERO_RESULTS"]:
+                return []
+        if status in ["OVER_DAILY_LIMIT","OVER_QUERY_LIMIT","UNKNOWN_ERROR"]:
+                print("Temporary error: {}".format(jsonpayload["status"]))
+                return []
+        if status in ["REQUEST_DENIED"]:
+                raise Exception("Problem with google account: {}".format(jsonpayload["status"]))
+        if status in ["INVALID_REQUEST"]:
+                raise Exception("Problem with query: {}".format(jsonpayload["status"]))       
 
     locations = [_getlocationFromResult(result) for result in jsonpayload["results"]]
 
