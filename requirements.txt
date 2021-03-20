@@ -6,7 +6,7 @@ h11==0.8.1
 httptools==0.0.13
 isort==4.3.20
 itsdangerous==1.1.0
-Jinja2==2.10.1
+Jinja2==2.11.3
 lazy-object-proxy==1.4.1
 loguru==0.3.1
 MarkupSafe==1.1.1
