@@ -19,5 +19,5 @@ typed-ast==1.4.0
 uvicorn==0.8.4
 uvloop==0.12.2
 websockets==7.0
-Werkzeug==0.15.4
+Werkzeug==0.15.5
 wrapt==1.11.1
